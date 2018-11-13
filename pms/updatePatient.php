@@ -1,0 +1,19 @@
+<?php
+if(!isset($_SESSION))
+{
+session_start();
+}
+if(empty($_POST['index'])&&empty($_POST['patiendID'])&&empty($_POST['value']))
+{
+	header("location:searchpatient");
+}
+$index=$_POST["index"];
+$patientID=$_POST["patientID"];
+$value=$_POST["value"];
+include_once('../functions/updateTable.php');
+$updateTable=new UpdateTable;
+$_SESSION["updateRes"]["mesg"]=$updateTable->updatePatient($index,$patientID,$value);
+$_SESSION["updateRes"]["ID"]=$patientID;
+$_SESSION["updateRes"]["index"]=$index;
+header("location:patientdetails");
+?>
